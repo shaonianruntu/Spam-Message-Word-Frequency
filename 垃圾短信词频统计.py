@@ -10,11 +10,13 @@ origanword_file = "spam.txt"
 stopword_file = "stopwords.dat" 
 outputword_file = "sorted_words.json"
 
+
 #按行读取文件，返回文件的行字符串列表
 def read_file(file_name):
     fp = open(file_name, "r", encoding="utf-8")
     content_lines = fp.readlines()
     fp.close()
+    #去除行末的换行符，否则会在停用词匹配的过程中产生干扰
     for i in range(len(content_lines)):
         content_lines[i] = content_lines[i].rstrip("\n")
     return content_lines
@@ -80,19 +82,25 @@ def delete_stopwords(lines):
 
 #主函数
 if __name__ == "__main__":
+    #按行读取文件
     lines = read_file(origanword_file)
     
+    #使用正则过滤
     for i in range(len(lines)):
         lines[i] = regex_change(lines[i])
     
+    #去除停用词，并返回词袋字典
     bow_words = delete_stopwords(lines)
 
+    #对词袋字典进行排序
     sorted_bow = sorted(bow_words.items(), key=lambda d:d[1], reverse=True)
 
+    #将排序结果保存到json文件中
     with open(outputword_file, "w") as output_file:
         json.dump(sorted_bow, output_file, ensure_ascii=False)
         print("加载数据完成...")
 
+    #打印出出现次数最高的100个数据，方便观察
     for words in sorted_bow[:100]:
         print(words)
 

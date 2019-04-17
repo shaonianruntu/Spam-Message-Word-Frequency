@@ -40,7 +40,7 @@ def regex_change(line):
         (/[a-zA-Z0-9]+)*
     """, re.VERBOSE|re.IGNORECASE)
     #剔除日期
-    data_regex = re.compile(u"""
+    data_regex = re.compile(u"""        #utf-8编码
         年 |
         月 |
         日 |

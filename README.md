@@ -1,2 +1,1 @@
-# SMS-Spam-Word-Frequency-Statistics
-垃圾短信词频统计
+# Word frequency statistics of spam messages
